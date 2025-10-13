@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriConnect Marketplace | Product Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- 1. Global Styles & Variables --- */
+        :root {
+            --primary-color: #4CAF50; /* Green - for nature/agriculture */
+            --secondary-color: #FFC107; /* Yellow - for highlights/buttons */
+            --text-color: #333;
+            --light-text-color: #666;
+            --background-color: #f8f8f8;
+            --card-background: #fff;
+            --border-radius: 8px;
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        /* --- 2. Header & Navigation --- */
+        .header {
+            background-color: var(--card-background);
+            box-shadow: var(--shadow-light);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-icons a {
+            font-size: 1.2em;
+            margin-left: 20px;
+            color: var(--light-text-color);
+            transition: color 0.2s;
+        }
+
+        .nav-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- 3. Search Bar --- */
+        .search-container {
+            flex-grow: 1;
+            margin: 0 40px;
+            max-width: 600px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* --- 4. Main Layout (Product Catalog) --- */
+        .main-content {
+            display: flex;
+            padding: 30px;
+            gap: 30px;
+        }
+
+        /* --- 5. Sidebar (Filters) --- */
+        .sidebar {
+            width: 250px;
+            min-width: 250px;
+            padding: 20px;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            height: fit-content;
+        }
+
+        .filter-group h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .category-list li {
+            list-style: none;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 0.95em;
+        }
+
+        .category-list li:hover {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .filter-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .filter-button:hover {
+            background-color: #388E3C;
+        }
+
+        /* --- 6. Product List and Sorting --- */
+        .product-catalog {
+            flex-grow: 1;
+        }
+
+        .sort-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sort-options select {
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 0.9em;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* --- 7. Product Card Design --- */
+        .product-card {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-image-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .product-description {
+            font-size: 0.85em;
+            color: var(--light-text-color);
+            margin-bottom: 10px;
+            flex-grow: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .btn-cart {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            flex-grow: 1;
+        }
+
+        .btn-buy {
+            background-color: var(--primary-color);
+            color: white;
+            width: 50%;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* --- 8. Footer (Placeholder) --- */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            color: var(--light-text-color);
+            font-size: 0.9em;
+        }
+
+        /* --- 9. Responsive Design --- */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-width: auto;
+            }
+
+            .header {
+                flex-wrap: wrap;
+                padding: 10px 20px;
+            }
+
+            .search-container {
+                order: 3; /* Move search below logo/nav on small screens */
+                margin: 15px 0 0 0;
+                width: 100%;
+            }
+
+            .nav-icons {
+                order: 2;
+            }
+
+            .logo {
+                order: 1;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">AgriLink</div>
+        
+        <div class="search-container">
+            <input type="search" class="search-bar" placeholder="Search products, brands, or location..." aria-label="Search">
+        </div>
+
+        <div class="nav-icons">
+            <a href="#" aria-label="Shopping Cart"><i class="fas fa-shopping-cart"></i></a>
+            <a href="#" aria-label="Wishlist"><i class="fas fa-heart"></i></a>
+            <a href="#" aria-label="Account"><i class="fas fa-user-circle"></i></a>
+        </div>
+    </header>
+
+    <div class="main-content">
+
+        <aside class="sidebar">
+            <div class="filter-group">
+                <h3><i class="fas fa-tags"></i> Product Categories</h3>
+                <ul class="category-list">
+                    <li data-category="all" class="active">All Products</li>
+                    <li data-category="seeds">Seeds & Seedlings</li>
+                    <li data-category="veggies">Veggies</li>
+                    <li data-category="fruits">Fruits</li>
+                    <li data-category="feed">Livestock Feed</li>
+                    <li data-category="tool">Tools and Equipment</li>
+                    <li data-category="rice">Rice Crops</li>
+                    <li data-category="meat">Fresh Poultry</li>
+                    <li data-category="crafts">Nipa Products</li>
+                </ul>
+            </div>
+            
+            <div class="filter-group">
+                <h3><i class="fas fa-dollar-sign"></i> Price Range</h3>
+                <p style="font-size: 0.9em; color: var(--light-text-color);">₱0 - ₱5,000</p>
+            </div>
+
+            <button class="filter-button">Apply Filters</button>
+        </aside>
+
+        <section class="product-catalog">
+            
+            <div class="sort-options">
+                <label for="sort-by">Sort By:</label>
+                <select id="sort-by">
+                    <option value="popularity">Popularity</option>
+                    <option value="newest">Newest Arrivals</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                </select>
+            </div>
+
+            <div class="product-grid" id="product-list">
+              
+                <div class="product-card" data-category="seeds">
+                    <div class="product-image-container">
+                        <img src="Heirloom Tomato Seeds.jpg" alt="Heirloom Tomato Seeds" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Heirloom Tomato Seeds</span>
+                        <p class="product-description">Premium quality seeds for growing delicious, non-GMO heirloom tomatoes. High yield and disease resistance.</p>
+                        <div class="ratings" style="color: var(--secondary-color); font-size: 0.8em; margin-bottom: 5px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (4.5)
+                        </div>
+                        <p class="product-price">₱149.00</p>
+                        <div class="action-buttons">
+                            <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="product-card" data-category="fruits">
+                    <div class="product-image-container">
+                        <img src="mango.webp" alt="Mango" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Carabao Mangoes (3kg Box)</span>
+                        <p class="product-description">Sweet, fiberless, and export-quality mangoes, hand-picked at peak ripeness from Guimaras groves. Perfect for eating fresh or blending into smoothies.</p>
+                        <div class="ratings" style="color: var(--secondary-color); font-size: 0.8em; margin-bottom: 5px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (5.0)
+                        </div>
+                        <p class="product-price">₱300.00</p>
+                        <div class="action-buttons">
+                            <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+
+<div class="product-card" data-category="veggies">
+                    <div class="product-image-container">
+                        <img src="eggplant.jpg" alt="eggplant" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Eggplant (2kg Box)</span>
+                        <p class="product-description">Known as the ultimate meat substitute, eggplant offers a rich, satisfying texture perfect for any meal.</p>
+                        <div class="ratings" style="color: var(--secondary-color); font-size: 0.8em; margin-bottom: 5px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (5.0)
+                        </div>
+                        <p class="product-price">₱80.00</p>
+                        <div class="action-buttons">
+                            <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+
+<div class="product-card" data-category="rice">
+                    <div class="product-image-container">
+                        <img src="rice.png" alt="Jasmine Rice" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Jasmine Premium Rice (50 kg)</span>
+                        <p class="product-description">Aromatic, long-grain white rice with a naturally sweet aroma and fluffy texture.</p>
+                        <div class="ratings" style="color: var(--secondary-color); font-size: 0.8em; margin-bottom: 5px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (5.0)
+                        </div>
+                        <p class="product-price">₱1200.00</p>
+                        <div class="action-buttons">
+                            <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+
+<div class="product-card" data-category="meat">
+                    <div class="product-image-container">
+                        <img src="meat.jpg" alt="Chiken Breast Fillets" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Chicken Breast Fillets (1 kg)</span>
+                        <p class="product-description">✅ High in Protein, Low in Fat
+✅ Quick & Easy Meal Prep
+✅ Sustainably Sourced Freshness</p>
+                        <div class="ratings" style="color: var(--secondary-color); font-size: 0.8em; margin-bottom: 5px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (5.0)
+                        </div>
+                        <p class="product-price">₱190.00</p>
+                        <div class="action-buttons">
+                            <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+
+<div class="product-card" data-category="crafts">
+                    <div class="product-image-container">
+                        <img src="basket.jpg" alt="Nipa Crops" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Nipa Palm 'Bayong' Basket</span>
+                        <p class="product-description">Handwoven utility basket crafted by brgy. Burabod artisans using sustainable Nipa palm leaves. Ideal for market trips, storage, or home décor.</p>
+                        <div class="ratings" style="color: var(--secondary-color); font-size: 0.8em; margin-bottom: 5px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (5.0)
+                        </div>
+                        <p class="product-price">₱100.00</p>
+                        <div class="action-buttons">
+                            <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="product-card" data-category="crops">
+                    <div class="product-image-container">
+                        <img src="Organic Soil Booster.jpg" alt="Organic Soil Booster" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Organic Soil Booster (1kg)</span>
+                        <p class="product-description">All-natural compost mix to revitalize soil health. Perfect for vegetable gardens and potted plants.</p>
+                        <div class="ratings" style="color: var(--secondary-color); font-size: 0.8em; margin-bottom: 5px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (4.0)
+                        </div>
+                        <p class="product-price">₱399.50</p>
+                        <div class="action-buttons">
+                            <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tool">
+                    <div class="product-image-container">
+                        <img src="Ergonomic Hand Trowel.webp" alt="Ergonomic Hand Trowel" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Heavy-Duty Hand Trowel</span>
+                        <p class="product-description">Stainless steel, rust-proof trowel with an ergonomic rubber grip for comfortable use.</p>
+                        <div class="ratings" style="color: var(--secondary-color); font-size: 0.8em; margin-bottom: 5px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (5.0)
+                        </div>
+                        <p class="product-price">₱250.00</p>
+                        <div class="action-buttons">
+                            <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="feed">
+                    <div class="product-image-container">
+                        <img src="Premium Chicken Layer Feed.webp" alt="Premium Chicken Layer Feed" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-name">Premium Chicken Layer Feed (25kg)</span>
+                        <p class="product-description">High-protein mix formulated for maximum egg production and healthy livestock.</p>
+                        <div class="ratings" style="color: var(--secondary-color); font-size: 0.8em; margin-bottom: 5px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (4.7)
+                        </div>
+                        <p class="product-price">₱250.00</p>
+                        <div class="action-buttons">
+                            <button class="btn btn-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="grid-column: 1 / -1; text-align: center; margin-top: 30px; color: var(--light-text-color);">End of Featured Products. <a href="#" style="font-weight: 600;">Load More</a></p>
+
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        &copy; 2025 AgriConnect Marketplace. All rights reserved. | <a href="#">Terms</a> | <a href="#">Privacy</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryList = document.querySelector('.category-list');
+            const productGrid = document.getElementById('product-list');
+            const productCards = document.querySelectorAll('.product-card');
+
+            categoryList.addEventListener('click', (event) => {
+                if (event.target.tagName === 'LI') {
+                    const selectedCategory = event.target.getAttribute('data-category');
+
+                    // 1. Update active category highlight
+                    categoryList.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+                    event.target.classList.add('active');
+
+                    // 2. Filter products
+                    productCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+
+                        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+            });
+
+            // Simple event listener for the action buttons (to demonstrate basic JS interaction)
+            productGrid.addEventListener('click', (event) => {
+                if (event.target.classList.contains('btn-cart')) {
+                    alert('Item added to cart! (Feature 4)');
+                } else if (event.target.classList.contains('btn-buy')) {
+                    alert('Proceeding to Checkout... (Feature 5)');
+                } else if (event.target.closest('.product-card')) {
+                    // Simulating a click that leads to the Product Details Page (Feature 3)
+                    if (!event.target.classList.contains('btn')) {
+                        alert('Opening Product Details Page for this item... (Feature 3)');
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

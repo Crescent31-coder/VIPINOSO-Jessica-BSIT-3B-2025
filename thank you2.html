@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Complete! - AgriLink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- General Setup & Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Changed to Poppins for a more modern feel */
+        body { font-family: 'Poppins', sans-serif; line-height: 1.6; background-color: #f0f8f0; /* Lighter, more organic background */ }
+        .container { width: 90%; /* Increased for better mobile use / max-width: 1200px; margin: 0 auto; padding: 0 15px; / Added internal padding */ }
+
+        /* --- Header & Navigation --- */
+        header { 
+            background-color: #388E3C; /* Darker, richer green */ 
+            color: white; 
+            padding: 15px 0; /* Slightly more padding */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+        .nav-content { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo a { 
+            color: white; 
+            text-decoration: none; 
+            font-size: 1.8em; /* Slightly larger logo */
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+        }
+        .logo i { 
+            margin-right: 10px; 
+            font-size: 1.5em; /* Larger icon */
+            color: #FFC107; /* Pop of color for the icon */
+        }
+        
+        /* Mobile Hamburger Icon (Hidden on Desktop) */
+        .menu-toggle {
+            display: none; 
+            font-size: 1.8em;
+            cursor: pointer;
+            color: white;
+        }
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            align-items: center;
+        }
+        nav ul li { 
+            margin-left: 25px; /* Increased spacing */
+        }
+        nav ul li a { 
+            color: white; 
+            text-decoration: none; 
+            padding: 10px 18px; 
+            border-radius: 25px; /* Pill shape for buttons/links */
+            transition: background-color 0.3s, box-shadow 0.3s; 
+            display: block; 
+            font-weight: 600;
+        }
+        nav ul li a:hover { 
+            background-color: rgba(255, 255, 255, 0.2); 
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        nav ul li a.active { 
+            background-color: #2E7D32; 
+            font-weight: 700; 
+        }
+        #register-btn { 
+            border: none; 
+            background-color: #FF7043; /* Warm, inviting color */ 
+            font-weight: 700; 
+            box-shadow: 0 4px 10px rgba(255, 112, 67, 0.4);
+        }
+        #register-btn:hover { 
+            background-color: #F4511E; 
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        /* --- Thank You Section (Central Content) --- */
+        .thankyou-section {
+            padding: 60px 0; /* Reduced top padding for smaller screens */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 200px); /* Better vertical centering */
+        }
+        
+        .thankyou-card {
+            width: 100%;
+            max-width: 550px; /* Slightly smaller maximum width */
+            background-color: white;
+            padding: 60px 30px; /* More vertical padding */
+            border-radius: 15px; /* Softer corners */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); /* Modern, lifted shadow */
+            text-align: center;
+            border-top: 10px solid #4CAF50; /* Changed border placement and thickness */
+            transform: scale(1);
+            transition: transform 0.4s ease-out; /* Add animation on load */
+        }
+        
+        .thankyou-card i {
+            font-size: 4.5em; /* Larger icon */
+            color: #4CAF50;
+            margin-bottom: 25px;
+            animation: bounceIn 1s ease-out;
+        }
+        
+        .thankyou-card h1 {
+            color: #388E3C; /* Green for success */
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .thankyou-card p {
+            font-size: 1.1em;
+            color: #666; /* Softer text color */
+            margin-bottom: 40px;
+            padding: 0 10px;
+        }
+        
+        .thankyou-card .home-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 40px; /* Larger, more prominent button */
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 15px rgba(76, 175, 80, 0.4);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            display: inline-block; /* Essential for button-like styling */
+        }
+        
+        .thankyou-card .home-btn:hover {
+            background-color: #388E3C;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(76, 175, 80, 0.6);
+        }
+
+        /* --- Footer --- */
+        footer { 
+            background-color: #212121; /* Darker footer */
+            color: white; 
+            padding: 20px 0; 
+            text-align: center; 
+            font-size: 0.9em;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+        }
+        .footer-links p {
+            flex-basis: 100%; /* forces the copyright line to its own row */
+            margin-bottom: 15px;
+            order: 2; /* Move copyright below links on desktop */
+        }
+        .footer-links a { 
+            color: #9E9E9E; 
+            text-decoration: none; 
+            margin: 0 12px; 
+            transition: color 0.3s; 
+            padding: 5px 0;
+            order: 1;
+        }
+        .footer-links a:hover { 
+            color: #4CAF50; 
+        }
+        .footer-links .social-icon { 
+            font-size: 1.4em; 
+            color: #FFC107; /* Icon color contrast */
+            margin: 0 8px; 
+        }
+
+        /* --- Animations --- */
+        @keyframes bounceIn {
+            0% { transform: scale(0.1); opacity: 0; }
+            60% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* ==================================== */
+        /* --- RESPONSIVENESS (Media Queries) --- */
+        /* ==================================== */
+        @media (max-width: 860px) {
+            /* Adjustments for tablets and smaller desktops */
+            nav ul li { margin-left: 15px; }
+            .logo a { font-size: 1.5em; }
+            .thankyou-card h1 { font-size: 2.2em; }
+            .thankyou-card p { font-size: 1em; }
+        }
+
+        @media (max-width: 768px) {
+            /* MOBILE SPECIFIC STYLES */
+            .menu-toggle {
+                display: block; /* Show hamburger icon */
+            }
+
+            nav {
+                /* Hide the menu by default */
+                position: absolute;
+                top: 65px; /* Height of the header */
+                left: 0;
+                width: 100%;
+                background-color: #388E3C;
+                box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+                /* Initial state: collapsed and off-screen */
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out;
+                z-index: 1000;
+            }
+
+            nav.open {
+                max-height: 300px; /* Arbitrary large number to fit all content */
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            nav ul {
+                flex-direction: column; /* Stack links vertically */
+                padding: 10px 0;
+            }
+
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            nav ul li a {
+                padding: 12px 20px;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            nav ul li:last-child a {
+                border-bottom: none;
+            }
+
+            /* Main Content Adjustments */
+            .thankyou-section {
+                min-height: 60vh;
+                padding: 40px 0;
+            }
+
+            .thankyou-card {
+                padding: 40px 20px;
+                margin: 0 10px;
+            }
+            
+            .thankyou-card i {
+                font-size: 3.5em;
+            }
+            
+            .thankyou-card h1 {
+                font-size: 1.8em;
+            }
+            
+            .thankyou-card p {
+                font-size: 1em;
+            }
+
+            /* Footer Adjustments */
+            .footer-links a, .footer-links .social-icon {
+                margin: 5px 8px;
+                flex-basis: 40%; /* 2 items per line */
+                font-size: 0.85em;
+            }
+            .footer-links .social-icon {
+                flex-basis: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="index2.html"><i class="fas fa-seedling"></i>AgriLink</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index2.html">Home</a></li>
+                    <li><a href="portfolio2.html">Portfolio</a></li>
+                    <li><a href="about2.html">About Us</a></li>
+                    <li><a href="contact2.html">Contact Us</a></li>
+                    <li><a id="register-btn" href="register2.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="thankyou-section">
+        <div class="thankyou-card">
+            <i class="fas fa-handshake"></i> 
+            <h1 id="thankYouHeader">Registration Complete! 🎉</h1>
+            <p>Welcome to the AgriLink family! We've successfully processed your details. You are now connected to the freshest local produce. Start exploring our vibrant network of farmers!</p>
+            <a href="index2.html" class="home-btn">Go to Homepage</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-links">
+            <p>© 2025 AgriLink. All rights reserved.</p>
+            <a href="about2.html">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="contact2.html">Support</a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * JAVASCRIPT FOR RESPONSIVENESS AND PERSONALIZATION
+         */
+        
+        // 1. Mobile Navigation Toggle
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('open');
+        });
+
+        // 2. Personalization Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const userName = localStorage.getItem('agrilink_user_name');
+            const headerElement = document.getElementById('thankYouHeader');
+            
+            if (userName) {
+                // Personalize the greeting
+                // Use a different emoji for a more modern look
+                headerElement.textContent = Welcome, ${userName}! 🌱; 
+            } else {
+                // Fallback message
+                headerElement.textContent = 'Registration Complete! 🎉';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriLink - Farm-to-Table Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      /* --- General Setup & Reset --- */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { 
+          font-family: 'Poppins', sans-serif; 
+          line-height: 1.6; 
+          background-color: #f0f8f0; /* Light, organic background */ 
+          color: #333;
+      }
+      .container { 
+          width: 90%; 
+          max-width: 1200px; 
+          margin: 0 auto; 
+          padding: 0 15px; 
+      }
+
+      /* --- Header & Navigation (Consistent Modern Style) --- */
+      header { 
+          background-color: #388E3C; /* Rich Green */
+          color: white; 
+          padding: 15px 0; 
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      .nav-content { 
+          display: flex; 
+          justify-content: space-between; 
+          align-items: center; 
+      }
+      .logo a { 
+          color: white; 
+          text-decoration: none; 
+          font-size: 1.8em; 
+          font-weight: 700; 
+          display: flex; 
+          align-items: center; 
+      }
+      .logo i { 
+          margin-right: 10px; 
+          font-size: 1.5em; 
+          color: #FFC107; /* Yellow Accent */
+      }
+      
+      /* Mobile Menu Toggle (Hamburger) */
+      .menu-toggle {
+          display: none; 
+          font-size: 1.8em;
+          cursor: pointer;
+          color: white;
+      }
+
+      nav {
+          /* Add transition for smooth opening/closing on mobile */
+          transition: max-height 0.4s ease-in-out;
+      }
+
+      nav ul { 
+          list-style: none; 
+          display: flex; 
+          align-items: center;
+      }
+      nav ul li { 
+          margin-left: 25px; 
+      }
+      nav ul li a { 
+          color: white; 
+          text-decoration: none; 
+          padding: 10px 18px; 
+          border-radius: 25px; 
+          transition: background-color 0.3s, transform 0.2s; 
+          display: block; 
+          font-weight: 600;
+      }
+      nav ul li a:hover { 
+          background-color: rgba(255, 255, 255, 0.2); 
+          transform: translateY(-1px);
+      }
+      nav ul li a.active { 
+          background-color: #2E7D32; 
+          font-weight: 700; 
+      }
+      #register-btn { 
+          border: none; 
+          background-color: #FF7043; /* Warm Accent CTA */ 
+          font-weight: 700; 
+          box-shadow: 0 4px 10px rgba(255, 112, 67, 0.4);
+      }
+      #register-btn:hover { 
+          background-color: #F4511E; 
+          transform: translateY(-2px); 
+      }
+
+      /* --- Hero Section --- */
+      .hero-section {
+          height: 50vh; /* Responsive height */
+          min-height: 350px;
+          /* Using a placeholder for the background image */
+          background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('headerimage.jpg'); 
+          background-size: cover;
+          background-position: center;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          color: white;
+          animation: fadeIn 1s ease-out;
+      }
+
+      @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+      }
+
+      .hero-content {
+          padding: 20px;
+      }
+
+      .hero-content h1 {
+          font-size: 4em;
+          margin-bottom: 25px;
+          font-weight: 700;
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+      }
+
+      .shop-button {
+          display: inline-block;
+          text-decoration: none;
+          background-color: #FFC107; /* Bright yellow for maximum pop */
+          color: #333;
+          padding: 14px 35px;
+          border-radius: 50px; /* Pill shape */
+          font-weight: 700;
+          font-size: 1.1em;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+          box-shadow: 0 5px 15px rgba(255, 193, 7, 0.5);
+      }
+
+      .shop-button:hover {
+          background-color: #FFB300; 
+          transform: translateY(-3px);
+          box-shadow: 0 8px 20px rgba(255, 193, 7, 0.7);
+      }
+
+      /* --- Featured Products --- */
+      .featured-products {
+          padding: 60px 0;
+          text-align: center;
+      }
+
+      .featured-products h2 {
+          margin-bottom: 40px;
+          font-size: 2.5em;
+          color: #388E3C;
+          font-weight: 700;
+      }
+
+      .product-grid {
+          display: grid;
+          /* Auto-fit for responsiveness: 1 column on small, 2-3 on tablet, 4+ on desktop */
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 30px;
+      }
+
+      .product-card {
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s, box-shadow 0.3s;
+          cursor: pointer;
+          text-align: left;
+          overflow: hidden;
+      }
+
+      .product-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .product-card img {
+          width: 100%;
+          height: 180px; /* Consistent image height */
+          object-fit: cover;
+          display: block;
+      }
+      
+      .product-content {
+          padding: 15px;
+      }
+
+      .product-id {
+          font-size: 0.9em;
+          color: #888;
+          margin-bottom: 8px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+      }
+
+      .product-id .fa-heart {
+          color: #FF7043; /* Accent color for the heart */
+          cursor: pointer;
+          transition: transform 0.2s;
+          font-size: 1.2em;
+      }
+      
+      .product-id .fa-heart:hover {
+          color: #F4511E;
+          transform: scale(1.2);
+      }
+
+      .product-details {
+          font-weight: 700;
+          color: #333;
+          font-size: 1.1em;
+      }
+
+      /* --- How It Works Section --- */
+      .how-it-works {
+          padding: 60px 0;
+          text-align: center;
+          background-color: white;
+          margin-top: 20px;
+          border-top: 1px solid #e0e0e0;
+      }
+
+      .how-it-works h2 {
+          font-size: 2.5em;
+          margin-bottom: 40px;
+          color: #388E3C;
+          font-weight: 700;
+      }
+
+      .steps-grid {
+          display: flex;
+          justify-content: center;
+          gap: 40px;
+          margin-top: 30px;
+          flex-wrap: wrap; /* Important for responsiveness */
+      }
+
+      .step {
+          text-align: center;
+          max-width: 250px;
+          padding: 20px;
+          flex-basis: calc(33% - 40px); /* Sets width for 3 items on desktop */
+      }
+
+      .step-icon {
+          font-size: 2.5em;
+          color: white;
+          background-color: #4CAF50; 
+          border-radius: 50%;
+          width: 80px;
+          height: 80px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 15px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .step p {
+          font-weight: 600;
+          color: #555;
+          font-size: 1.05em;
+          line-height: 1.4;
+      }
+      
+      /* --- Footer --- */
+      footer {
+          background-color: #212121;
+          color: white;
+          padding: 20px 0;
+          margin-top: 40px;
+          text-align: center;
+          font-size: 0.9em;
+      }
+
+      .footer-links {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+      }
+      .footer-links p {
+          flex-basis: 100%; 
+          margin-bottom: 15px;
+          order: 2;
+      }
+      .footer-links a { 
+          color: #9E9E9E; 
+          text-decoration: none; 
+          margin: 0 12px; 
+          transition: color 0.3s; 
+          padding: 5px 0;
+          order: 1;
+      }
+      .footer-links a:hover { 
+          color: #4CAF50; 
+      }
+      .footer-links .social-icon { 
+          font-size: 1.4em; 
+          color: #FFC107; 
+          margin: 0 8px; 
+      }
+
+      /* ==================================== */
+      /* --- RESPONSIVENESS (Media Queries) --- */
+      /* ==================================== */
+      @media (max-width: 768px) {
+          /* Mobile Navigation */
+          .menu-toggle { display: block; }
+          nav {
+              position: absolute; top: 65px; left: 0; width: 100%;
+              background-color: #388E3C; box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+              max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out;
+              z-index: 1000;
+          }
+          nav.open { max-height: 350px; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+          nav ul { flex-direction: column; padding: 10px 0; }
+          nav ul li { margin: 0; width: 100%; text-align: center; }
+          nav ul li a { padding: 12px 20px; border-radius: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+          nav ul li:last-child a { border-bottom: none; }
+
+          /* Hero Section */
+          .hero-content h1 {
+              font-size: 2.8em;
+          }
+          .shop-button {
+              padding: 12px 30px;
+              font-size: 1em;
+          }
+
+          /* Featured Products & How It Works */
+          .featured-products, .how-it-works {
+              padding: 40px 0;
+          }
+          .featured-products h2, .how-it-works h2 {
+              font-size: 2em;
+          }
+          
+          /* How It Works Steps - Stack them vertically */
+          .steps-grid {
+              flex-direction: column;
+              gap: 30px;
+          }
+          .step {
+              flex-basis: 100%;
+              max-width: 100%;
+          }
+      }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="index2.html"><i class="fas fa-seedling"></i>AgriLink</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index2.html" class="active">Home</a></li>
+                    <li><a href="portfolio2.html">Portfolio</a></li>
+                    <li><a href="about2.html">About Us</a></li>
+                    <li><a href="contact2.html">Contact Us</a></li>
+                    <li><a id="register-btn" href="register2.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Fresh. Local. Direct.</h1>
+            <a href="consumer dashboard.html" class="shop-button">
+                Explore The Marketplace
+            </a>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <div class="container">
+            <h2>Our Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-card" onclick="showProductAlert('Nipa Crops')">
+                    <img src="nipa.jpg" alt="Nipa Crops">
+                    <div class="product-content">
+                        <p class="product-id">$10.00/pc <i class="fas fa-heart"></i></p>
+                        <p class="product-details">Sustainable Nipa Crops</p>
+                    </div>
+                </div>
+
+                <div class="product-card" onclick="showProductAlert('Local Fruits')">
+                    <img src="fruits.webp" alt="Fruits">
+                    <div class="product-content">
+                        <p class="product-id">$5.00/kg <i class="fas fa-heart"></i></p>
+                        <p class="product-details">Seasonal Local Fruits</p>
+                    </div>
+                </div>
+
+                <div class="product-card" onclick="showProductAlert('Organic Vegetables')">
+                    <img src="veggies.jpg" alt="Vegetables">
+                    <div class="product-content">
+                        <p class="product-id">$8.50/lb <i class="fas fa-heart"></i></p>
+                        <p class="product-details">Farm Fresh Organic Vegetables</p>
+                    </div>
+                </div>
+
+                <div class="product-card" onclick="showProductAlert('Carabao Mangoes')">
+                    <img src="mango.webp" alt="Mangoes">
+                    <div class="product-content">
+                        <p class="product-id">$19.99/kg <i class="fas fa-heart"></i></p>
+                        <p class="product-details">Sweet Carabao Mangoes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How AgriLink Connects You</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-tractor"></i></div>
+                    <p>Farmers List Fresh Products Directly</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <p>Customers Order Easily Online</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-shipping-fast"></i></div>
+                    <p>Direct Delivery to Your Table</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-links">
+            <p>© 2025 AgriLink. All rights reserved.</p>
+            <a href="about2.html">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="contact2.html">Support</a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+        </div>
+    </footer>
+
+    <script>
+      /**
+       * INDEX.HTML PAGE JAVASCRIPT
+       */
+      
+      // 1. Mobile Navigation Toggle
+      document.getElementById('menuToggle').addEventListener('click', () => {
+          const nav = document.getElementById('mainNav');
+          nav.classList.toggle('open');
+      });
+
+      // 2. Function to show an alert when a product is clicked
+      function showProductAlert(productName) {
+          alert(You clicked on: ${productName}. This would lead to the product detail page.);
+      }
+      
+    </script>
+</body>
+</html>

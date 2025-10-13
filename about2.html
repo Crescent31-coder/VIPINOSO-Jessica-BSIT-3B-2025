@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - AgriLink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- General Setup & Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            line-height: 1.6; 
+            background-color: #f0f8f0; /* Light, organic background */ 
+            color: #333;
+        }
+        .container { 
+            width: 90%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 15px; 
+        }
+
+        /* --- Header & Navigation (Consistent Modern Style) --- */
+        header { 
+            background-color: #388E3C; 
+            color: white; 
+            padding: 15px 0; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav-content { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo a { 
+            color: white; 
+            text-decoration: none; 
+            font-size: 1.8em; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+        }
+        .logo i { 
+            margin-right: 10px; 
+            font-size: 1.5em; 
+            color: #FFC107; 
+        }
+        
+        /* Mobile Menu Toggle (Hamburger) */
+        .menu-toggle {
+            display: none; 
+            font-size: 1.8em;
+            cursor: pointer;
+            color: white;
+        }
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            align-items: center;
+        }
+        nav ul li { 
+            margin-left: 25px; 
+        }
+        nav ul li a { 
+            color: white; 
+            text-decoration: none; 
+            padding: 10px 18px; 
+            border-radius: 25px; 
+            transition: background-color 0.3s, transform 0.2s; 
+            display: block; 
+            font-weight: 600;
+        }
+        nav ul li a:hover { 
+            background-color: rgba(255, 255, 255, 0.2); 
+            transform: translateY(-1px);
+        }
+        nav ul li a.active { 
+            background-color: #2E7D32; 
+            font-weight: 700; 
+        }
+        #register-btn { 
+            border: none; 
+            background-color: #FF7043; 
+            font-weight: 700; 
+            box-shadow: 0 4px 10px rgba(255, 112, 67, 0.4);
+        }
+        #register-btn:hover { 
+            background-color: #F4511E; 
+            transform: translateY(-2px); 
+        }
+
+        /* --- About Us Page Specific Styles --- */
+        .about-section {
+            padding: 80px 0 40px 0;
+            text-align: center;
+        }
+        
+        .about-section h1 {
+            font-size: 3em;
+            color: #388E3C;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .about-section > p { /* Target the main descriptive paragraph */
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            font-size: 1.15em;
+            color: #555;
+        }
+        
+        .mission-vision {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        
+        .mission, .vision {
+            flex: 1;
+            padding: 40px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid #FFC107; /* Consistent accent color */
+            transition: transform 0.3s;
+        }
+        
+        .mission:hover, .vision:hover {
+            transform: translateY(-5px);
+        }
+        
+        .mission h2, .vision h2 {
+            color: #FF7043; /* Consistent accent color */
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mission i, .vision i {
+            margin-right: 15px;
+            color: #388E3C;
+            font-size: 1.2em;
+        }
+        
+        .mission p, .vision p {
+            font-size: 1em;
+            color: #666;
+        }
+
+        /* --- Team Section --- */
+        .team-section {
+            padding: 60px 0;
+            text-align: center;
+            background-color: white;
+            margin-top: 40px;
+        }
+        
+        .team-section h2 {
+            font-size: 2.5em;
+            color: #388E3C;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+        
+        .team-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            gap: 40px 30px; /* Vertical and horizontal gap */
+        }
+        
+        .team-member {
+            max-width: 200px; /* Slightly adjusted size */
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            transition: box-shadow 0.3s;
+        }
+        
+        .team-member:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-member img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #4CAF50; /* Primary color border */
+            box-shadow: 0 0 0 6px rgba(76, 175, 80, 0.2); /* Accent ring */
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover img {
+            transform: scale(1.05);
+        }
+
+        .team-member h4 {
+            margin-bottom: 2px;
+            color: #333;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .team-member p {
+            color: #FF7043; /* Use accent color for role */
+            font-style: normal;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        /* --- Footer --- */
+        footer { 
+            background-color: #212121; 
+            color: white; 
+            padding: 20px 0; 
+            text-align: center; 
+            font-size: 0.9em;
+            margin-top: 50px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .footer-links p {
+            flex-basis: 100%; 
+            margin-bottom: 15px;
+            order: 2;
+        }
+        .footer-links a { 
+            color: #9E9E9E; 
+            text-decoration: none; 
+            margin: 0 12px; 
+            transition: color 0.3s; 
+            padding: 5px 0;
+            order: 1;
+        }
+        .footer-links a:hover { 
+            color: #4CAF50; 
+        }
+        .footer-links .social-icon { 
+            font-size: 1.4em; 
+            color: #FFC107; 
+            margin: 0 8px; 
+        }
+
+        /* ==================================== */
+        /* --- RESPONSIVENESS (Media Queries) --- */
+        /* ==================================== */
+        
+        @media (max-width: 900px) {
+            /* Stacks the Mission/Vision blocks vertically */
+            .mission-vision {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .mission, .vision {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile Navigation */
+            .menu-toggle { display: block; }
+            nav {
+                position: absolute; top: 65px; left: 0; width: 100%;
+                background-color: #388E3C; box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+                max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out;
+                z-index: 1000;
+            }
+            nav.open { max-height: 350px; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+            nav ul { flex-direction: column; padding: 10px 0; }
+            nav ul li { margin: 0; width: 100%; text-align: center; }
+            nav ul li a { padding: 12px 20px; border-radius: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+            nav ul li:last-child a { border-bottom: none; }
+
+            /* About Content Adjustments */
+            .about-section {
+                padding: 40px 0 20px 0;
+            }
+            .about-section h1 {
+                font-size: 2.2em;
+            }
+            .about-section > p {
+                font-size: 1em;
+                margin-bottom: 30px;
+            }
+            
+            /* Team Grid - smaller members */
+            .team-section h2 {
+                font-size: 2em;
+            }
+            .team-grid {
+                gap: 20px 15px; /* Tighter spacing for small screens */
+            }
+            .team-member {
+                max-width: 150px; /* Allows 2-3 members per row */
+            }
+            .team-member img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="index2.html"><i class="fas fa-seedling"></i>AgriLink</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index2.html">Home</a></li>
+                    <li><a href="portfolio2.html">Portfolio</a></li>
+                    <li><a href="about2.html" class="active">About Us</a></li>
+                    <li><a href="contact2.html">Contact Us</a></li>
+                    <li><a id="register-btn" href="register2.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="about-section">
+        <div class="container">
+            <h1>Our Story: Connecting Farms to Families 🤝</h1>
+            <p>AgriLink was founded on the simple idea that food should be *fresh, local, and accessible*. We bridge the gap between hardworking Filipino farmers and conscious consumers, fostering a sustainable ecosystem and creating a transparent marketplace for everyone.</p>
+
+            <div class="mission-vision">
+                <div class="mission">
+                    <h2><i class="fas fa-bullseye"></i>Our Mission</h2>
+                    <p>To *empower local farmers* by providing a direct, transparent, and profitable marketplace for their products, and to provide consumers with the freshest, highest-quality produce available, harvested with care.</p>
+                </div>
+                <div class="vision">
+                    <h2><i class="fas fa-eye"></i>Our Vision</h2>
+                    <p>To become the leading *farm-to-table platform* in the region, setting the standard for sustainable food sourcing, robust community support, and technological innovation in the agricultural sector.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    ---
+
+    <section class="team-section">
+        <div class="container">
+            <h2>Meet the Dedicated AgriLink Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="ceo.jpg" alt="CEO">
+                    <h4>Juan Dela Cruz</h4>
+                    <p>Founder & CEO</p>
+                </div>
+                <div class="team-member">
+                    <img src="cmo.jpg" alt="CMO">
+                    <h4>Jessica Vipinoso</h4>
+                    <p>Head of Farmer Relations</p>
+                </div>
+                <div class="team-member">
+                    <img src="cto.png" alt="CTO">
+                    <h4>Jose Reyes</h4>
+                    <p>Chief Technology Officer</p>
+                </div>
+                <div class="team-member">
+                    <img src="support.png" alt="Support Manager">
+                    <h4>Maria Santos</h4>
+                    <p>Customer Support Lead</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container footer-links">
+            <p>© 2025 AgriLink. All rights reserved.</p>
+            <a href="about.html">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="contact.html">Support</a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * JAVASCRIPT FOR RESPONSIVENESS
+         */
+        
+        // Mobile Navigation Toggle
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('open');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('About Us page loaded successfully.');
+        });
+    </script>
+</body>
+</html>

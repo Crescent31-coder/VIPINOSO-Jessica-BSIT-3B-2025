@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - AgriLink</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* --- General Setup & Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            line-height: 1.6; 
+            background-color: #f0f8f0; /* Light, organic background */ 
+            color: #333;
+        }
+        .container { 
+            width: 90%; /* Better space utilization on mobile */
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 15px; 
+        }
+
+        /* --- Header & Navigation (Consistent Modern Style) --- */
+        header { 
+            background-color: #388E3C; 
+            color: white; 
+            padding: 15px 0; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav-content { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .logo a { 
+            color: white; 
+            text-decoration: none; 
+            font-size: 1.8em; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+        }
+        .logo i { 
+            margin-right: 10px; 
+            font-size: 1.5em; 
+            color: #FFC107; 
+        }
+        
+        /* Mobile Menu Toggle (Hamburger) */
+        .menu-toggle {
+            display: none; 
+            font-size: 1.8em;
+            cursor: pointer;
+            color: white;
+        }
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            align-items: center;
+        }
+        nav ul li { 
+            margin-left: 25px; 
+        }
+        nav ul li a { 
+            color: white; 
+            text-decoration: none; 
+            padding: 10px 18px; 
+            border-radius: 25px; 
+            transition: background-color 0.3s, transform 0.2s; 
+            display: block; 
+            font-weight: 600;
+        }
+        nav ul li a:hover { 
+            background-color: rgba(255, 255, 255, 0.2); 
+            transform: translateY(-1px);
+        }
+        nav ul li a.active { 
+            background-color: #2E7D32; 
+            font-weight: 700; 
+        }
+        #register-btn { 
+            border: none; 
+            background-color: #FF7043; /* Warm, inviting CTA color */ 
+            font-weight: 700; 
+            box-shadow: 0 4px 10px rgba(255, 112, 67, 0.4);
+        }
+        #register-btn:hover { 
+            background-color: #F4511E; 
+            transform: translateY(-2px); 
+        }
+
+        /* --- Portfolio Page Specific Styles --- */
+        .portfolio-section {
+            padding: 80px 0 60px 0;
+            text-align: center;
+        }
+        
+        .portfolio-section h1 {
+            font-size: 2.8em;
+            color: #388E3C;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        /* Adaptive Grid Layout */
+        .gallery-grid {
+            /* Better control for mobile and desktop views */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .gallery-item {
+            background-color: white;
+            border-radius: 12px; /* Softer radius */
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border-bottom: 4px solid #4CAF50; /* Subtle accent line */
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-8px); /* More pronounced lift */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 220px; /* Slightly taller images */
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s;
+        }
+        
+        .gallery-item:hover img {
+            opacity: 0.9;
+        }
+        
+        .gallery-content {
+            padding: 20px 20px 25px 20px;
+        }
+        
+        .gallery-content h3 {
+            color: #388E3C;
+            margin-bottom: 5px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+        
+        .gallery-content p {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+        
+        .gallery-content .tag {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 5px 12px;
+            background-color: #FF7043; /* Consistent accent color */
+            color: white;
+            border-radius: 20px; /* Pill shape for tags */
+            font-weight: 600;
+            font-size: 0.75em;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Footer --- */
+        footer { 
+            background-color: #212121; 
+            color: white; 
+            padding: 20px 0; 
+            text-align: center; 
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .footer-links p {
+            flex-basis: 100%; 
+            margin-bottom: 15px;
+            order: 2;
+        }
+        .footer-links a { 
+            color: #9E9E9E; 
+            text-decoration: none; 
+            margin: 0 12px; 
+            transition: color 0.3s; 
+            padding: 5px 0;
+            order: 1;
+        }
+        .footer-links a:hover { 
+            color: #4CAF50; 
+        }
+        .footer-links .social-icon { 
+            font-size: 1.4em; 
+            color: #FFC107; 
+            margin: 0 8px; 
+        }
+
+        /* ==================================== */
+        /* --- RESPONSIVENESS (Media Queries) --- */
+        /* ==================================== */
+        @media (max-width: 768px) {
+            /* Mobile Navigation */
+            .menu-toggle { display: block; }
+            nav {
+                position: absolute; top: 65px; left: 0; width: 100%;
+                background-color: #388E3C; box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+                max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out;
+                z-index: 1000;
+            }
+            nav.open { max-height: 300px; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+            nav ul { flex-direction: column; padding: 10px 0; }
+            nav ul li { margin: 0; width: 100%; text-align: center; }
+            nav ul li a { padding: 12px 20px; border-radius: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+            nav ul li:last-child a { border-bottom: none; }
+
+            /* Portfolio Content Adjustments */
+            .portfolio-section {
+                padding: 40px 0;
+            }
+            .portfolio-section h1 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+
+            /* Single column for the gallery on small phones */
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .gallery-item {
+                border-radius: 8px;
+            }
+            .gallery-item img {
+                height: 180px;
+            }
+
+            /* Footer Adjustments */
+            .footer-links a, .footer-links .social-icon {
+                margin: 5px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="index2.html"><i class="fas fa-seedling"></i>AgriLink</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index2.html">Home</a></li>
+                    <li><a href="portfolio2.html" class="active">Portfolio</a></li>
+                    <li><a href="about2.html">About Us</a></li>
+                    <li><a href="contact2.html">Contact Us</a></li>
+                    <li><a id="register-btn" href="register2.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="portfolio-section">
+        <div class="container">
+            <h1>Meet Our Network: Sustainable Producers & Products 🌾</h1>
+            <div class="gallery-grid" id="portfolioGallery">
+                
+                <div class="gallery-item" onclick="showPortfolioDetail('Green Leaf Organics')">
+                    <img src="VEGGIES.jpg" alt="Leafy Greens Farm">
+                    <div class="gallery-content">
+                        <h3>Green Leaf Organics</h3>
+                        <p>Specializing in leafy greens, herbs, and root vegetables. A fully organic-certified farm committed to soil health.</p>
+                        <span class="tag">Certified Organic</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="showPortfolioDetail('Mangga King Farms')">
+                    <img src="mango.webp" alt="Mango Orchard">
+                    <div class="gallery-content">
+                        <h3>Mangga King Farms 🥭</h3>
+                        <p>Home to the sweetest Carabao Mangoes and other tropical fruits, grown with low-impact, traditional methods.</p>
+                        <span class="tag">Tropical Fruits</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="showPortfolioDetail('Coastal Aqua Culture')">
+                    <img src="fish.jpg" alt="Tilapia and Milkfish">
+                    <div class="gallery-content">
+                        <h3>Coastal Aqua Culture</h3>
+                        <p>Sustainable, freshwater and brackish water aquaculture for local Tilapia and Milkfish supply, promoting clean water use.</p>
+                        <span class="tag">Seafood & Fish</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="showPortfolioDetail('The Honeycomb Apiary')">
+                    <img src="HONEY.jpg" alt="Apiary">
+                    <div class="gallery-content">
+                        <h3>The Honeycomb Apiary 🍯</h3>
+                        <p>Producers of raw, unprocessed honey and beeswax, actively contributing to local pollination and biodiversity.</p>
+                        <span class="tag">Specialty Goods</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="showPortfolioDetail('Nipa Palm Leaves')">
+                    <img src="nipahut.webp" alt="Nipa Palm">
+                    <div class="gallery-content">
+                        <h3>Nipa Palm Leaves</h3>
+                        <p>Specializing in the sustainable harvesting of nipa palm leaves for traditional roofing and crafts, supporting local artisans.</p>
+                        <span class="tag">Local Crafts</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="showPortfolioDetail('Golden Yolk Farms')">
+                    <img src="eggs.jpg" alt="Pasture-Raised Eggs">
+                    <div class="gallery-content">
+                        <h3>Golden Yolk Farms</h3>
+                        <p>Pasture-raised, heritage-breed brown eggs. Hens are fed a certified non-GMO, soy-free diet and are moved to fresh pasture daily.</p>
+                        <span class="tag">Fresh Eggs</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-links">
+            <p>© 2025 AgriLink. All rights reserved.</p>
+            <a href="about2.html">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="contact2.html">Support</a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * JAVASCRIPT FOR RESPONSIVENESS AND GALLERY INTERACTIVITY
+         */
+        
+        // 1. Mobile Navigation Toggle
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('open');
+        });
+
+        // 2. Simple Portfolio Detail Viewer
+        function showPortfolioDetail(itemName) {
+            alert(You are viewing the portfolio for: ${itemName}. This would lead to a dedicated farm profile page with ordering options.);
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Portfolio page loaded with gallery items.');
+        });
+    </script>
+</body>
+</html>
